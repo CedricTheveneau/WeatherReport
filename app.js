@@ -19,7 +19,7 @@ const icon = document.querySelector(".icon");
 const cloudOutput = document.querySelector(".cloud");
 const humidityOutput = document.querySelector(".humidity");
 const windOutput = document.querySelector(".wind");
-const form = document.getElementById(".locationInput");
+const form = document.getElementById("locationInput");
 const search = document.querySelector(".search");
 const btn = document.querySelector(".submit");
 const cities = document.querySelectorAll(".city");
@@ -28,8 +28,8 @@ const cities = document.querySelectorAll(".city");
 let cityInput = "London";
 
 // Add click event to each city in the panel //
-cities.forEach((City) => {
-  cityInput.addEventListener("click", (e) => {
+cities.forEach((city) => {
+  city.addEventListener("click", (e) => {
     // Change from default city to the clicked one //
     cityInput = e.target.innerHTML;
     /* Function that fetches and displays all the data from the weather API */
@@ -45,7 +45,7 @@ form.addEventListener("submit", (e) => {
   if (search.value.length == 0) {
     alert("Please, type in a city name");
   } else {
-    /* Change from the default city to the one written in the input feild */
+    /* Change from the default city to the one written in the input field */
     cityInput = search.value;
     /* Function that fetches and displays all the data from the weather API */
     fetchWeatherData();
@@ -78,7 +78,7 @@ function fetchWeatherData() {
   /* Fetches the data and dinamically add the city name with template literals */
   /* Use your own key */
   fetch(
-    "https://api.weatherapi.com/v1/current.json?key=dca0f3ef8101433aa55163153223008=${cityInput}"
+    "https://api.weatherapi.com/v1/current.json?key=dca0f3ef8101433aa55163153223008&q=${cityInput}&aqi=no"
   )
     /* Take the data and convert it to a regular JS object */
     .then((response) => response.json())
@@ -92,9 +92,9 @@ function fetchWeatherData() {
       const y = parseInt(date.substr(0, 4));
       const m = parseInt(date.substr(5, 2));
       const d = parseInt(date.substr(8, 2));
-      const time = data.substr(11);
+      const time = date.substr(11);
       /* Reformat the date into something more appealing */
-      dateOutput.innerHTML = "${dayOfTheWeek(d,m,y)} ${d}, ${m}, ${y}";
+      dateOutput.innerHTML = "${dayOfTheWeek(d, m, y)} ${d}, ${m} ${y}";
       timeOutput.innerHTML = time;
       /* Add the name of the city */
       nameOutput.innerHTML = data.location.name;
@@ -103,7 +103,7 @@ function fetchWeatherData() {
         "//cdn.weatherapi.com/weather/64x64/".length
       );
       /* Reformat the icon url to your ownlocal folder path */
-      icon.src = "public/icons/" + iconId;
+      icon.src = "./public/icons/" + iconId;
       // Add the weather details to the page //
       cloudOutput.innerHTML = data.current.cloud + "%";
       humidityOutput.innerHTML = data.current.humidity + "%";
@@ -118,7 +118,7 @@ function fetchWeatherData() {
       }
       if (code == 1000) {
         /* Set the bg image to clear if the weather is clear */
-        app.style.backgroundImage = "url(public/img/${timeOfDay}/clear.jpg)";
+        app.style.backgroundImage = "url(./public/img/${timeOfDay}/clear.jpg)";
         /* Change btn color depending on the bg img */
         btn.style.background = "#e5ba92";
         if (timeOfDay == "night") {
@@ -138,7 +138,7 @@ function fetchWeatherData() {
         code == 1279 ||
         code == 1282
       ) {
-        app.style.backgroundImage = "url(public/img/${timeOfDay}/cloudy.jpg)";
+        app.style.backgroundImage = "url(./public/img/${timeOfDay}/cloudy.jpg)";
         btn.style.background = "#fa6d1b";
         if (timeOfDay == "night") {
           btn.style.background = "#181e27";
@@ -164,14 +164,14 @@ function fetchWeatherData() {
         code == 1249 ||
         code == 1252
       ) {
-        app.style.backgroundImage = "url(public/img/${timeOfDay}/rainy.jpg)";
+        app.style.backgroundImage = "url(./public/img/${timeOfDay}/rainy.jpg)";
         btn.style.background = "#647d75";
         if (timeOfDay == "night") {
           btn.style.background = "#325c80";
         }
         /* And Snow */
       } else {
-        app.style.backgroundImage = "url(public/img/${timeOfDay}/snowy.jpg)";
+        app.style.backgroundImage = "url(./public/img/${timeOfDay}/snowy.jpg)";
         btn.style.background = "#4d72aa";
         if (timeOfDay == "night") {
           btn.style.background = "1b1b1b";
