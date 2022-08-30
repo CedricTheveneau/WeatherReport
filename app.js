@@ -19,7 +19,7 @@ const icon = document.querySelector(".icon");
 const cloudOutput = document.querySelector(".cloud");
 const humidityOutput = document.querySelector(".humidity");
 const windOutput = document.querySelector(".wind");
-const form = document.getElementById("locationInput");
+const form = document.getElementById(".locationInput");
 const search = document.querySelector(".search");
 const btn = document.querySelector(".submit");
 const cities = document.querySelectorAll(".city");
@@ -103,7 +103,7 @@ function fetchWeatherData() {
         "//cdn.weatherapi.com/weather/64x64/".length
       );
       /* Reformat the icon url to your ownlocal folder path */
-      icon.src = "../../icons/" + iconId;
+      icon.src = "public/icons/" + iconId;
       // Add the weather details to the page //
       cloudOutput.innerHTML = data.current.cloud + "%";
       humidityOutput.innerHTML = data.current.humidity + "%";
@@ -118,7 +118,7 @@ function fetchWeatherData() {
       }
       if (code == 1000) {
         /* Set the bg image to clear if the weather is clear */
-        app.style.backgroundImage = "url(../../img/${timeOfDay}/clear.jpg)";
+        app.style.backgroundImage = "url(public/img/${timeOfDay}/clear.jpg)";
         /* Change btn color depending on the bg img */
         btn.style.background = "#e5ba92";
         if (timeOfDay == "night") {
@@ -138,7 +138,7 @@ function fetchWeatherData() {
         code == 1279 ||
         code == 1282
       ) {
-        app.style.backgroundImage = "url(../../images/${timeOfDay}/cloudy.jpg)";
+        app.style.backgroundImage = "url(public/img/${timeOfDay}/cloudy.jpg)";
         btn.style.background = "#fa6d1b";
         if (timeOfDay == "night") {
           btn.style.background = "#181e27";
@@ -164,14 +164,14 @@ function fetchWeatherData() {
         code == 1249 ||
         code == 1252
       ) {
-        app.style.backgroundImage = "url(../../images/${timeOfDay}/rainy.jpg)";
+        app.style.backgroundImage = "url(public/img/${timeOfDay}/rainy.jpg)";
         btn.style.background = "#647d75";
         if (timeOfDay == "night") {
           btn.style.background = "#325c80";
         }
         /* And Snow */
       } else {
-        app.style.backgroundImage = "url(../../images/${timeOfDay}/snowy.jpg)";
+        app.style.backgroundImage = "url(public/img/${timeOfDay}/snowy.jpg)";
         btn.style.background = "#4d72aa";
         if (timeOfDay == "night") {
           btn.style.background = "1b1b1b";
